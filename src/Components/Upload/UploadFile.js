@@ -15,6 +15,7 @@ const Box = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  /* flex: 1; */
 `;
 
 const PaperStyle = {
@@ -22,15 +23,27 @@ const PaperStyle = {
   alignItems: "center",
   justifyContent: "center",
   flexDirection: "column",
-  marginTop: "70px",
-  height: "40vw",
-  width: "80vh",
-  borderRadius: "30px",
+  // marginTop: "70px",
+  height: "38rem",
+  width: "34rem",
+  borderRadius: "19px",
 };
 
 const IconStyle = {
   fontSize: "123px",
   cursor: "pointer",
+};
+
+
+const ButtonStyle = {
+  minWidth: "86px",
+  borderRadius: "12px",
+  textTransform: "none",
+  fontSize: "17px",
+  lineHeight: "1.5",
+  backgroundColor: "#2b92f8",
+  display: "flex",
+  justifyContent: "center",
 };
 
 const initialState = {
@@ -67,11 +80,11 @@ const UploadFile = () => {
 
   return (
     <Box>
-      <Paper elevation={5} sx={PaperStyle}>
+      <Paper elevation={10} sx={PaperStyle}>
         <CloudUploadOutlinedIcon sx={IconStyle} />
         <div>
-          <Button variant="contained" color="primary" onClick={handleOpen}>
-            Add PDF
+          <Button variant="contained" sx={ButtonStyle} onClick={handleOpen}>
+            Select Document
           </Button>
 
           <DropzoneDialog

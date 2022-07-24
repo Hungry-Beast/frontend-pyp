@@ -16,13 +16,13 @@ import './App.css';
 // import Home from './pages/Home';
 // import Form from './components/SignIn/Form';
 // import UploadPage from './Components/Upload/UploadPage';
-import UploadFile from './Components/Upload/UploadFile';
+import UploadPage from './Components/Upload/UploadPage';
 
 
 function App() {
   return (
     <>
-      <UploadFile />
+      <UploadPage />
     </>
   );
 }

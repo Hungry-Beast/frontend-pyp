@@ -2,11 +2,13 @@ import React, { useState } from "react";
 
 import { TextField, Paper, Button, Box } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
-import { styled } from "@mui/system";
-// import { shadows } from "@mui/system";
+import styled from "styled-components";
 
 import baseApi from "../../config";
 import Swal from "sweetalert2";
+
+import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
+import { DropzoneDialog } from "material-ui-dropzone";
 
 const Style = styled(Box)`
   display: flex;
@@ -18,17 +20,23 @@ const PaperStyle = styled(Paper)`
   width: 34rem;
   height: 38rem;
   border-radius: 19px;
-  form {
+  /* form {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+  } */
 
   h1 {
     font-weight: bold;
     margin-top: 62px;
     margin-bottom: 32px;
   }
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const StyleName = {
@@ -102,7 +110,7 @@ const AutoSecondText = {
   },
 };
 
-const ButtonStyle = {
+const Buttoncss = {
   marginTop: "3rem",
   marginLeft: "19rem",
   minWidth: "86px",
@@ -117,6 +125,47 @@ const ButtonStyle = {
     border: "2px solid red",
   },
 };
+
+
+//Upload File Styles ##### starts
+
+const FirstContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* flex: 1; */
+`;
+
+const Papercss = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexDirection: "column",
+  // marginTop: "70px",
+  height: "38rem",
+  width: "34rem",
+  borderRadius: "19px",
+};
+
+const IconStyle = {
+  fontSize: "123px",
+  cursor: "pointer",
+};
+
+
+const ButtonStyle = {
+  minWidth: "86px",
+  borderRadius: "12px",
+  textTransform: "none",
+  fontSize: "17px",
+  lineHeight: "1.5",
+  backgroundColor: "#2b92f8",
+  display: "flex",
+  justifyContent: "center",
+};
+
+
+// #### ends here...
 
 const Branch = [
   {
@@ -213,6 +262,38 @@ const year = [
 ];
 
 function UploadPage() {
+
+  const initialState = {
+    open: false,
+    files: [],
+  };
+  
+    const [state, setState] = useState(initialState);
+  
+    const handleOpen = () => {
+      setState({
+        ...state,
+        open: true,
+      });
+    };
+  
+    const handleClose = () => {
+      setState({
+        ...state,
+        open: false,
+      });
+    };
+  
+    const handleSave = (files) => {
+      setState({
+        ...state,
+        files: files,
+        open: false,
+      });
+    };
+  
+    // console.log(state.files);
+
   const DEFAULT_VALUES = {
     name: "",
     subCode: "",
@@ -248,53 +329,100 @@ function UploadPage() {
     <Style>
       <PaperStyle elevation={10}>
         <form onSubmit={handleSubmit}>
-          <h1>The Art of Sharing</h1>
+          <Container>
+            <h1>The Art of Sharing</h1>
 
-          <TextField
-            type="text"
-            name="name"
-            value={uploadData.name}
-            onChange={handleInputChange}
-            id="standard-basic"
-            variant="standard"
-            sx={StyleName}
-            placeholder="Name"
-            InputProps={{ disableUnderline: true }}
-            elevation={5}
-          />
+            <TextField
+              type="text"
+              name="name"
+              value={uploadData.name}
+              onChange={handleInputChange}
+              id="standard-basic"
+              variant="standard"
+              sx={StyleName}
+              placeholder="Name"
+              InputProps={{ disableUnderline: true }}
+              elevation={5}
+            />
 
-          <Box>
+            <Box>
+              <Autocomplete
+                name="subCode"
+                options={subjectCode}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                value={uploadData.subCode}
+                onChange={handleSliderChange("subCode")}
+                sx={AutoStyle}
+                renderInput={(params) => (
+                  <TextField
+                    placeholder="Subject Code"
+                    variant="standard"
+                    {...params}
+                    InputProps={{
+                      ...params.InputProps,
+                      disableUnderline: true,
+                    }}
+                  />
+                )}
+              />
+            </Box>
+
+            <BoxStyle>
+              <Autocomplete
+                name="semester"
+                value={uploadData.semester}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                onChange={handleSliderChange("semester")}
+                options={semester}
+                sx={AutoFirstText}
+                renderInput={(params) => (
+                  <TextField
+                    // type="number"
+                    placeholder="Semester"
+                    variant="standard"
+                    {...params}
+                    InputProps={{
+                      ...params.InputProps,
+                      disableUnderline: true,
+                    }}
+                  />
+                )}
+              />
+
+              <Autocomplete
+                name="year"
+                value={uploadData.year}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                onChange={handleSliderChange("year")}
+                options={year}
+                sx={AutoSecondText}
+                renderInput={(params) => (
+                  <TextField
+                    // type="number"
+                    placeholder="Year"
+                    variant="standard"
+                    {...params}
+                    InputProps={{
+                      ...params.InputProps,
+                      disableUnderline: true,
+                    }}
+                  />
+                )}
+              />
+            </BoxStyle>
+
             <Autocomplete
-              name="subCode"
-              options={subjectCode}
+              name="branch"
+              value={uploadData.branch}
               isOptionEqualToValue={(option, value) => option.id === value.id}
-              value={uploadData.subCode}
-              onChange={handleSliderChange("subCode")}
-
+              onChange={handleSliderChange("branch")}
+              disablePortal
+              options={Branch}
               sx={AutoStyle}
               renderInput={(params) => (
                 <TextField
-                  placeholder="Subject Code"
-                  variant="standard"
-                  {...params}
-                  InputProps={{ ...params.InputProps, disableUnderline: true }}
-                />
-              )}
-            />
-          </Box>
-
-          <BoxStyle>
-            <Autocomplete
-              name="semester"
-              value={uploadData.semester}
-              isOptionEqualToValue={(option, value) => option.id === value.id}
-              onChange={handleSliderChange("semester")}
-              options={semester}
-              sx={AutoFirstText}
-              renderInput={(params) => (
-                <TextField
-                  // type="number"
-                  placeholder="Semester"
+                  type="text"
+                  placeholder="Branch"
                   variant="standard"
                   {...params}
                   InputProps={{ ...params.InputProps, disableUnderline: true }}
@@ -302,52 +430,45 @@ function UploadPage() {
               )}
             />
 
-            <Autocomplete
-              name="year"
-              value={uploadData.year}
-              isOptionEqualToValue={(option, value) => option.id === value.id}
-              onChange={handleSliderChange("year")}
-              options={year}
-              sx={AutoSecondText}
-              renderInput={(params) => (
-                <TextField
-                  // type="number"
-                  placeholder="Year"
-                  variant="standard"
-                  {...params}
-                  InputProps={{ ...params.InputProps, disableUnderline: true }}
+            <Button
+              variant="contained"
+              sx={Buttoncss}
+              type="submit"
+              value="Submit"
+            >
+              Done
+            </Button>
+          </Container>
+
+          <FirstContainer>
+            <Paper elevation={10} sx={Papercss}>
+              <CloudUploadOutlinedIcon sx={IconStyle} />
+              <div>
+                <Button
+                  variant="contained"
+                  sx={ButtonStyle}
+                  onClick={handleOpen}
+                >
+                  Select Document
+                </Button>
+
+                <DropzoneDialog
+                  open={state.open}
+                  onSave={handleSave}
+                  acceptedFiles={[]}
+                  showPreviews={true}
+                  maxFileSize={500000000}
+                  onClose={handleClose}
+                  cancelButtonText={"cancel"}
+                  submitButtonText={"submit"}
+                  showFileNamesInPreview={true}
+                  dialogTitle={"Upload File"}
+                  dropzoneText={"Drag and drop here"}
                 />
-              )}
-            />
-          </BoxStyle>
+              </div>
+            </Paper>
+          </FirstContainer>
 
-          <Autocomplete
-            name="branch"
-            value={uploadData.branch}
-            isOptionEqualToValue={(option, value) => option.id === value.id}
-            onChange={handleSliderChange("branch")}
-            disablePortal
-            options={Branch}
-            sx={AutoStyle}
-            renderInput={(params) => (
-              <TextField
-                type="text"
-                placeholder="Branch"
-                variant="standard"
-                {...params}
-                InputProps={{ ...params.InputProps, disableUnderline: true }}
-              />
-            )}
-          />
-
-          <Button
-            variant="contained"
-            sx={ButtonStyle}
-            type="submit"
-            value="Submit"
-          >
-            Done
-          </Button>
         </form>
       </PaperStyle>
     </Style>
