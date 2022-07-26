@@ -348,8 +348,8 @@ function UploadPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const res = await baseApi.post("/upload", { ...uploadData });
-    console.log(res.data);
+    // const res = await baseApi.post("/upload", { ...uploadData });
+    console.log(uploadData);
   };
 
   return (
@@ -369,6 +369,7 @@ function UploadPage() {
           placeholder="Name"
           InputProps={{ disableUnderline: true }}
           elevation={5}
+          required
         />
 
         <Box>
@@ -388,6 +389,7 @@ function UploadPage() {
                   ...params.InputProps,
                   disableUnderline: true,
                 }}
+                required
               />
             )}
           />
@@ -411,6 +413,7 @@ function UploadPage() {
                   ...params.InputProps,
                   disableUnderline: true,
                 }}
+                required
               />
             )}
           />
@@ -432,6 +435,7 @@ function UploadPage() {
                   ...params.InputProps,
                   disableUnderline: true,
                 }}
+                required
               />
             )}
           />
