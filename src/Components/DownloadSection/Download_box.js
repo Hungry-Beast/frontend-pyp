@@ -45,7 +45,6 @@ const Leg = styled.div`
 `;
 const PdfView = styled.img`
   display: block;
-  /* vertical-align: middle; */
   height: 182px;
   max-width: 100%;
   object-fit: cover;
@@ -57,34 +56,24 @@ const Foot = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  /* width: 100%; */
   align-items: center;
-  /* flex-shrink: 0; */
   margin-left:1.5em ;
   margin-right:1.5em ;
 `;
 const DownloadIcon = styled.div`
   font-weight: 100;
   width: 30px;
-  /* cursor: pointer; */
-`;
-const DDeleteIcon = styled.div`
-  width: 78px;
 `;
 const Download = ({ data }) => {
-  // console.log(data);
-// const Tittle = styled.div`
-//     font-size: 75%;
-// `;
 
-const [anchorEl, setAnchorEl] = useState(null);
-const open = Boolean(anchorEl);
-const handleClick = (event) => {
-  setAnchorEl(event.currentTarget);
-};
-const handleClose = () => {
-  setAnchorEl(null);
-};
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <DownloadBox>

@@ -20,7 +20,7 @@ import UploadPage from './components/UploadPage/UploadPage';
 
 function App() {
   return (
-    <Download_Page/>
+    <Download_Page />
   );
 }
 

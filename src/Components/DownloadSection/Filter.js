@@ -1,7 +1,5 @@
 import * as React from 'react';
-//import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-//import MenuItem from '@mui/material/MenuItem';
 import { Autocomplete } from '@mui/material';
 import styled from "@emotion/styled";
 
@@ -141,9 +139,3 @@ export default function SelectTextFields() {
     </StyleDiv>
   );
 }
-
-// {branches.map((option) => (
-//   <MenuItem key={option.value} value={option.value}>
-//     {option.label}
-//   </MenuItem>
-// ))}
