@@ -27,3 +27,11 @@ body {
   background-repeat: no-repeat;
 }
 
+.dzu-dropzone{
+  height: 100%;
+  overflow: hidden !important;
+}
+/* .dzu-inputLabel{
+  align-items: flex-end !important;
+  
+} */

@@ -1,4 +1,5 @@
 import './App.css';
+import UploadPageComponent from './pages/UploadPage';
 // import SignUpForm from './components/SignUp/SignUpForm';
 // import SignInForm from './components/SignIn/SignInForm';
 // // import LeftSection from './components/LeftSection';
@@ -16,13 +17,13 @@ import './App.css';
 // import Home from './pages/Home';
 // import Form from './components/SignIn/Form';
 // import UploadPage from './Components/Upload/UploadPage';
-import UploadPage from './Components/Upload/UploadPage';
+// import UploadPage from './Components/Upload/UploadPage';
 
 
 function App() {
   return (
     <>
-      <UploadPage />
+      <UploadPageComponent />
     </>
   );
 }

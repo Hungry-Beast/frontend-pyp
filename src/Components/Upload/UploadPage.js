@@ -8,19 +8,20 @@ import baseApi from "../../config";
 // import Swal from "sweetalert2";
 
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
-import { DropzoneDialog } from "material-ui-dropzone";
+// import { DropzoneDialog } from "material-ui-dropzone";
+import "react-dropzone-uploader/dist/styles.css";
+import Dropzone from "react-dropzone-uploader";
 
 const FormContainer = styled.form`
   display: flex;
   align-content: space-around;
   justify-content: space-around;
   margin-top: 4rem;
-
 `;
 
 const FirstContainer = styled(Paper)`
   width: 34rem;
-  height: 38rem;
+  /* height: 38rem; */
   border-radius: 19px;
   //form {
   display: flex;
@@ -121,6 +122,7 @@ const Buttoncss = {
   fontSize: "17px",
   lineHeight: "1.5",
   backgroundColor: "#2b92f8",
+  marginBottom:"2rem",
 
   "& 	.MuiButton-text": {
     backgroundColor: "black",
@@ -135,9 +137,43 @@ const SecondContainer = styled(Paper)`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 38rem;
+  /* height: 38rem; */
   width: 34rem;
   border-radius: 19px;
+`;
+const DropzoneUpdated = styled(Dropzone)`
+  height: 100vh !important;
+`;
+const UploadLabelComponent = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 4rem;
+`;
+const UploadIcon = styled.img`
+  width: 40%;
+`;
+const SelectButton = styled.div`
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  background: #1fa3fb;
+  border-radius: 13px;
+  outline: none;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  margin: 1rem 0;
+  padding: 0.7rem 2rem;
+`;
+const UploadSpan = styled.span`
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #000000;
+  text-align: center;
 `;
 
 // const Papercss = {
@@ -264,6 +300,20 @@ const year = [
 ];
 
 function UploadPage() {
+  // const getUploadParams = ({ meta }) => {
+  //   return { url: "https://httpbin.org/post" };
+  // };
+
+  // called every time a file's `status` changes
+  const handleChangeStatus = ({ meta, file }, status) => {
+    console.log(status, meta, file);
+  };
+
+  // receives array of files that are done uploading when submit button is clicked
+  const handleNewSubmit = (files, allFiles) => {
+    console.log(files.map((f) => f.meta));
+    allFiles.forEach((f) => f.remove());
+  };
   // const initialState = {
   //   open: false,
   //   files: [],
@@ -303,8 +353,8 @@ function UploadPage() {
     branch: "",
     files: {
       open: false,
-      file: []
-    }
+      file: [],
+    },
   };
 
   const [uploadData, setuploadData] = useState(DEFAULT_VALUES);
@@ -351,10 +401,47 @@ function UploadPage() {
     // const res = await baseApi.post("/upload", { ...uploadData });
     console.log(uploadData);
   };
+  const UploadLabel = (
+    <UploadLabelComponent>
+      <UploadIcon src="/images/upload-cloud.svg" />
+      <SelectButton type="button">Select Document</SelectButton>
+      <UploadSpan>Or drag and drop your file here.</UploadSpan>
+    </UploadLabelComponent>
+  );
+  const InputComponnent = ({ accept, onFiles, files, getFilesFromEvent }) => {
+    const text = files.length > 0 ? 'Add more files' : 'Choose files'
 
+    return (
+      <label style={{ backgroundColor: '#007bff', color: '#fff', cursor: 'pointer', padding: 15, borderRadius: 3 }}>
+        {text}
+        <input
+          style={{ display: 'none' }}
+          type="file"
+          accept={accept}
+          multiple
+          onChange={e => {
+            getFilesFromEvent(e).then(chosenFiles => {
+              onFiles(chosenFiles)
+            })
+          }}
+        />
+      </label>
+    )
+  }
   return (
     // <Style>
     <FormContainer onSubmit={handleSubmit}>
+      <SecondContainer elevation={10}>
+        {/* <CloudUploadOutlinedIcon sx={IconStyle} /> */}
+        <DropzoneUpdated
+          
+          inputContent={UploadLabel}
+          accept="image/*,audio/*,video/*"
+        />
+        {/* <Button variant="contained" sx={ButtonStyle} onClick={handleOpen}>
+          Select Document
+        </Button> */}
+      </SecondContainer>
       <FirstContainer elevation={10}>
         <h1>The Art of Sharing</h1>
 
@@ -464,29 +551,6 @@ function UploadPage() {
           Done
         </Button>
       </FirstContainer>
-
-      <SecondContainer elevation={10}>
-        <CloudUploadOutlinedIcon sx={IconStyle} />
-
-        <Button variant="contained" sx={ButtonStyle} onClick={handleOpen}>
-          Select Document
-        </Button>
-
-        <DropzoneDialog
-          // open={state.open}
-          open={uploadData.open}
-          onSave={handleSave}
-          acceptedFiles={[]}
-          showPreviews={true}
-          maxFileSize={500000000}
-          onClose={handleClose}
-          cancelButtonText={"cancel"}
-          submitButtonText={"submit"}
-          showFileNamesInPreview={true}
-          dialogTitle={"Upload File"}
-          dropzoneText={"Drag and drop here"}
-        />
-      </SecondContainer>
     </FormContainer>
   );
 }
