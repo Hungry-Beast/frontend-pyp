@@ -1,6 +1,6 @@
 import React from "react";
-import LeftSection from "../components/LeftSection";
-import Navbar from "../components/Navbar";
+import LeftSection from "../Components/LeftSection";
+import Navbar from "../Components/Navbar";
 import '../App.css'
 
 const Home = () => {

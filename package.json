@@ -15,8 +15,15 @@
     "react": "^17.0.2",
     "react-data-table-component": "^7.4.7",
     "react-dom": "^17.0.2",
+    "react-dropzone-uploader": "^2.11.0",
+    "react-files": "^3.0.0-alpha.3",
     "react-scripts": "5.0.0",
+
     "react-web-share": "^1.1.6",
+
+    "react-use-file-upload": "^0.9.5",
+    "source-map-resolve": "^0.6.0",
+    "stable": "^0.1.8",
     "styled-components": "^5.3.5",
     "sweetalert2": "^11.4.8",
     "web-vitals": "^2.1.4"

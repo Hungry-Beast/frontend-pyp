@@ -1,12 +1,14 @@
 import './App.css';
-import SignUpForm from './components/SignUp/SignUpForm';
-import SignInForm from './components/SignIn/SignInForm';
-// import LeftSection from './components/LeftSection';
-import Navbar from './components/Navbar';
+import UploadPageComponent from './pages/UploadPage';
+// import SignUpForm from './components/SignUp/SignUpForm';
+// import SignInForm from './components/SignIn/SignInForm';
+// // import LeftSection from './components/LeftSection';
+// import Navbar from './components/Navbar';
 
-import Download_Page from './components/DownloadSection/Download_Page';
-import Download_box from './components/DownloadSection/Download_box';
+import Download_Page from './Components/DownloadSection/Download_Page';
+import Download_box from './Components/DownloadSection/Download_box';
 import Home from './pages/Home';
+
 // import Footer from './components/Footer';
 
 // import Form from './Components/SingIn/Form';
@@ -15,12 +17,17 @@ import Home from './pages/Home';
 
 // import Home from './pages/Home';
 // import Form from './components/SignIn/Form';
-import UploadPage from './components/UploadPage/UploadPage';
+// import UploadPage from './Components/Upload/UploadPage';
+// import UploadPage from './Components/Upload/UploadPage';
 
 
 function App() {
   return (
-    <Download_Page />
+
+    <>
+      <UploadPageComponent />
+    </>
+
   );
 }
 
